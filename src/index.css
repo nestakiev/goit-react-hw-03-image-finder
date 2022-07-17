@@ -1,4 +1,4 @@
-@import-normalize; /* bring in normalize.css styles */
+/* @import-normalize; bring in normalize.css styles */
 
 html {
   box-sizing: border-box;
@@ -26,4 +26,8 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+[data-testid="three-dots-loading"] {
+  justify-content: center;
 }

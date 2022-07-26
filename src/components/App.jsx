@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import { Container } from "./App.styled";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
-import { ImageGalleryItem } from "./ImageGalleryItem/ImageGalleryItem";
 import { ThreeDots } from "react-loader-spinner";
 import { Button } from "./Button/Button";
 import { Modal } from "./Modal/Modal";
@@ -56,12 +55,13 @@ export class App extends Component {
       this.setState({
         isLoading: true,
       });
-      const image = await API.loadImage(query, page);
+      const images = await API.loadImage(query, page);
+      
       this.setState(prevState => ({
-        items: [...prevState.items, ...image.hits],
+        items: [...prevState.items, ...images],
         isLoading: false,
       }));
-      if(image.hits.length === 0) {
+      if(images.length === 0) {
         alert("Sorry, we can't find anyting for your request. Please, enter another request");
       }
     } catch (error) {
@@ -90,9 +90,7 @@ export class App extends Component {
       <Container>
         <Searchbar onSubmit={this.onFormSubmit} isLoading={isLoading}/>
         {error && <p>{error}</p>}
-        <ImageGallery>
-          <ImageGalleryItem items={items} onClick={this.onOpenModalWithLargeImage}/>
-        </ImageGallery>
+        {items.length > 0 && <ImageGallery items={items} onClick={this.onOpenModalWithLargeImage}/>}
         {isLoading && (<ThreeDots
           height="50"
           width="50"

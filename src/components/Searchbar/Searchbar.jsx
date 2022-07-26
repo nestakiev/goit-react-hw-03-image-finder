@@ -7,6 +7,12 @@ export class Searchbar extends Component {
         inputValue: '',
     }
 
+    static propTypes = {
+        onSubmit: PropTypes.func.isRequired,
+        isLoading: PropTypes.bool.isRequired,
+    };
+
+
     handleChange = e => {
         this.setState({
             inputValue: e.target.value,
@@ -19,14 +25,14 @@ export class Searchbar extends Component {
     
     render () {
         const { inputValue } = this.state;
-        const { onSubmit } = this.props;
+        const { onSubmit, isLoading } = this.props;
         
         return (
             <Header>
                 <Form onSubmit={(e) => {e.preventDefault();
                     onSubmit(inputValue);
                     this.resetInput()}}>
-                    <Button type="submit" disabled={this.props.isLoading}>
+                    <Button type="submit" disabled={isLoading}>
                         <Span>Search</Span>
                     </Button>
                     <Input type="text" 
@@ -41,7 +47,7 @@ export class Searchbar extends Component {
     }
 }
 
-Searchbar.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-}
+// Searchbar.propTypes = {
+//     onSubmit: PropTypes.func.isRequired,
+//     isLoading: PropTypes.bool.isRequired,
+// }
